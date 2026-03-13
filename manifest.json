@@ -1,0 +1,9 @@
+{
+  "Name": "Replatform",
+  "Version": "1.0.0",
+  "Id": "Calloatti.Replatform",
+  "MinimumGameVersion": "1.0.0.0",
+  "Description": "Allows dynamic splitting and restacking of platforms without requiring the deconstruction of buildings supported above",
+  "RequiredMods": [{"Id": "Harmony", "MinVersion": "2.4.1"}],
+  "OptionalMods": []
+}

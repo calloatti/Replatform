@@ -1,0 +1,67 @@
+1. TARGET OVERLAY LOGIC
+   - Enable the 'Platform 1x1' (1-tall) blueprint to be validly placed on the same 
+     coordinates and footprint as an existing 'Double Platform' (2-tall) or 
+     'Triple Platform' (3-tall).
+   - Enable the 'Double Platform' (2-tall) blueprint to be validly placed within 
+     the footprint of an existing 'Triple Platform'.
+
+2. AUTOMATED DECONSTRUCTION (REPLACEMENT)
+   - When a smaller platform is placed "inside" a larger one, the game must 
+     immediately trigger a "refunded deconstruction" of the larger unit.
+   - The materials for the larger unit should be returned to the site or 
+     inventory (standard deconstruction behavior).
+
+3. COORDINATE-AWARE RE-CONSTRUCTION
+   - For a 'Double Platform' conversion:
+     - Replace 'Double Platform' with 1x 'Platform 1x1' (Base).
+     - Automatically queue 1x 'Platform 1x1' (Top) on the level above.
+   - For a 'Triple Platform' conversion:
+     - If replacing with a 'Platform 1x1': queue a 'Double Platform' on top.
+     - If replacing with a 'Double Platform': queue a 'Platform 1x1' on top.
+
+4. OCCUPANCY GRID BYPASS
+   - Override the 'BlockObject' occupancy check to allow these specific 
+     overlapping blueprints, which is normally prohibited by the engine 
+     to prevent clipping.
+
+5. PRESERVATION OF CONNECTIONS
+   - Ensure that any power shafts or paths currently on top of the 'Triple/Double' 
+     platform do not get destroyed if the total height of the new stack 
+     matches the original height.
+	 
+================================================================================
+MOD DESIGN DOCUMENT: "Replatform"
+================================================================================
+
+1. CORE OBJECTIVE
+   - Allow players to place smaller platforms "inside" the footprint of larger 
+     existing platforms to dynamically split them.
+   - Example A: Place a 1x1 Platform at the base of a Double Platform. The 
+     Double Platform splits into two stacked 1x1 Platforms.
+   - Example B: Place a Double Platform inside a Triple Platform, leaving a 
+     1x1 Platform on top (or vice versa).
+
+2. IMPLEMENTATION STRATEGY (DATA-DRIVEN)
+   - NO NEW BUILDINGS: We will not add new items to the building menu. 
+   - BLUEPRINT OVERRIDES: We will modify the vanilla JSON blueprints for 
+     Platform, Double Platform, and Triple Platform (for both IronTeeth and 
+     Folktails).
+   - CUSTOM SPEC: We will inject a custom component spec (e.g., 
+     "ReplatformableSpec") directly into these JSON files to tag them as 
+     valid targets for splitting.
+
+3. BEHAVIOR & LOGIC (INSPIRED BY 'TUNNEL.CS')
+   - When the smaller platform finishes construction, it will trigger a swap 
+     event.
+   - The original, larger platform will be deleted/refunded.
+   - The newly built smaller platform takes the base space.
+   - The game will automatically queue/spawn the remaining platform pieces 
+     on top to fill the vertical gap left by the original structure.
+
+4. PENDING TECHNICAL HURDLE: PLACEMENT VALIDATION
+   - The game's default collision system will block placing a building inside 
+     the coordinates of an existing building ("Space is already occupied").
+   - NEXT STEP: We need to design a Harmony patch (likely targeting the 
+     BlockObject validation logic) to bypass this check specifically when a 
+     platform blueprint is placed over a "Replatformable" structure.
+================================================================================
