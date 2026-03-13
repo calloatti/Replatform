@@ -1,3 +1,5 @@
+https://steamcommunity.com/sharedfiles/filedetails/?id=3684033679
+
 # Replatform: Technical Architecture
 
 This document outlines the internal structure and logic of the **Replatform** mod for Timberborn. It is intended for other modders who want to understand how the dynamic platform splitting/merging is achieved or how to make their own custom platforms compatible.
