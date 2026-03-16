@@ -52,7 +52,7 @@ namespace Calloatti.Replatform
 
           // BULLETPROOF: Both must be replatformable and the existing one must be finished.
           // We removed the height check so Big-into-Small works too.
-          if (obj.GetComponent<ReplatformableSpec>() == null || !obj.IsFinished)
+          if (obj.GetComponent<ReplatformableSpec>() == null || !obj.IsFinished || obj.Blocks.Size.z == placing.Blocks.Size.z)
           {
             validOverlap = false;
             break;
@@ -96,7 +96,7 @@ namespace Calloatti.Replatform
 
           foreach (var obj in intersecting)
           {
-            if (obj != __instance && obj.GetComponent<ReplatformableSpec>() != null && obj.IsFinished)
+            if (obj != __instance && obj.GetComponent<ReplatformableSpec>() != null && obj.IsFinished && obj.Blocks.Size.z != __instance.Blocks.Size.z)
             {
               toSwap.Add(obj);
             }
@@ -164,25 +164,27 @@ namespace Calloatti.Replatform
       heightUsed = 0;
       if (string.IsNullOrEmpty(spec?.AvailablePlatforms)) return null;
 
-      var parsedPlatforms = new System.Collections.Generic.List<(int Height, string Name)>();
-
-      // Split the single string into entries
-      string[] platformEntries = spec.AvailablePlatforms.Split(',');
-
-      foreach (string entry in platformEntries)
+      // The caching logic implemented here
+      if (spec.ParsedPlatforms == null)
       {
-        // Split each entry into height and name
-        string[] parts = entry.Split(':');
-        if (parts.Length == 2 && int.TryParse(parts[0].Trim(), out int h))
+        spec.ParsedPlatforms = new System.Collections.Generic.List<(int Height, string Name)>();
+
+        string[] platformEntries = spec.AvailablePlatforms.Split(',');
+
+        foreach (string entry in platformEntries)
         {
-          parsedPlatforms.Add((h, parts[1].Trim()));
+          string[] parts = entry.Split(':');
+          if (parts.Length == 2 && int.TryParse(parts[0].Trim(), out int h))
+          {
+            spec.ParsedPlatforms.Add((h, parts[1].Trim()));
+          }
         }
+
+        // Sort descending to pick the largest possible fit
+        spec.ParsedPlatforms.Sort((a, b) => b.Height.CompareTo(a.Height));
       }
 
-      // Sort descending to pick the largest possible fit
-      parsedPlatforms.Sort((a, b) => b.Height.CompareTo(a.Height));
-
-      foreach (var p in parsedPlatforms)
+      foreach (var p in spec.ParsedPlatforms)
       {
         if (gapHeight >= p.Height)
         {
