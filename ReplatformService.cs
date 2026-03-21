@@ -1,4 +1,5 @@
 ﻿using Timberborn.BlockSystem;
+using Timberborn.Buildings;
 using Timberborn.Coordinates;
 using Timberborn.EntitySystem;
 using Timberborn.TemplateSystem;
@@ -23,21 +24,27 @@ namespace Calloatti.Replatform
 
     public void SpawnFiller(string fillerTemplateName, Placement placement, bool wasFinished)
     {
-      // Grab the prefab spec for the 1x1 platform
+      // Grab the prefab spec for the platform
       BlockObjectSpec fillerSpec = _templateNameMapper.GetTemplate(fillerTemplateName).GetSpec<BlockObjectSpec>();
 
       BlockObject filler;
       if (wasFinished)
       {
-        // Spawn it fully built to prevent top-buildings from collapsing
         filler = _blockObjectFactory.CreateFinished(fillerSpec, placement);
       }
       else
       {
         filler = _blockObjectFactory.CreateUnfinished(fillerSpec, placement);
+        // Flag for ghost visuals
+        var replatformable = filler.GetComponent<Replatformable>();
+        if (replatformable != null)
+        {
+          replatformable.IsReplatformingGhost = true;
+          // Force initial model refresh
+          filler.GetComponent<BuildingModel>()?.ShowFinishedModel();
+        }
       }
 
-      // Add the new platform block to the game's physics/voxel grid
       filler.AddToServiceAfterLoad();
     }
   }

@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using System.Collections.Generic;
 using Timberborn.BlockSystem;
+using Timberborn.Buildings;
 using Timberborn.Coordinates;
 using Timberborn.DeconstructionSystem;
 using UnityEngine;
@@ -24,6 +25,31 @@ namespace Calloatti.Replatform
   {
     public static void Prefix(BlockObject __instance) => ValidationContext.CurrentValidatingObject = __instance;
     public static void Postfix() => ValidationContext.CurrentValidatingObject = null;
+  }
+
+  [HarmonyPatch(typeof(BlockObject), nameof(BlockObject.MarkAsFinished))]
+  public static class BlockObject_MarkAsFinished_Patch
+  {
+    public static void Prefix(BlockObject __instance)
+    {
+      var replatformable = __instance.GetComponent<Replatformable>();
+      if (replatformable != null) replatformable.IsReplatformingGhost = false;
+    }
+  }
+
+  // BULLETPROOF VISUALS: Intercept every model refresh to force the ghost mesh
+  [HarmonyPatch(typeof(BuildingModel), nameof(BuildingModel.UpdateModelVisibility))]
+  public static class BuildingModel_UpdateModelVisibility_Patch
+  {
+    public static void Prefix(BuildingModel __instance)
+    {
+      var replatformable = __instance.GetComponent<Replatformable>();
+      if (replatformable != null && replatformable.IsReplatformingGhost)
+      {
+        // This forces the internal state to "Finished" (Ghost) before the method logic runs
+        Traverse.Create(__instance).Field("_showFinishedModel").SetValue(true);
+      }
+    }
   }
 
   [HarmonyPatch("Timberborn.BlockSystem.BlockService", "AnyNonOverridableObjectsAt")]
@@ -50,8 +76,6 @@ namespace Calloatti.Replatform
           if (obj == placing) continue;
           foundAny = true;
 
-          // BULLETPROOF: Both must be replatformable and the existing one must be finished.
-          // We removed the height check so Big-into-Small works too.
           if (obj.GetComponent<ReplatformableSpec>() == null || !obj.IsFinished || obj.Blocks.Size.z == placing.Blocks.Size.z)
           {
             validOverlap = false;
@@ -105,6 +129,13 @@ namespace Calloatti.Replatform
 
         if (toSwap.Count > 0)
         {
+          var replatformableComp = __instance.GetComponent<Replatformable>();
+          if (replatformableComp != null)
+          {
+            replatformableComp.IsReplatformingGhost = true;
+            __instance.GetComponent<BuildingModel>()?.ShowFinishedModel();
+          }
+
           __state = new List<SwapData>();
           foreach (var oldPlatform in toSwap)
           {
@@ -136,8 +167,8 @@ namespace Calloatti.Replatform
 
       foreach (var data in __state)
       {
-        FillGap(data, newZ + newHeight, data.OldZ + data.OldHeight); // Above
-        FillGap(data, data.OldZ, newZ); // Below
+        FillGap(data, newZ + newHeight, data.OldZ + data.OldHeight);
+        FillGap(data, data.OldZ, newZ);
       }
     }
 
@@ -164,11 +195,9 @@ namespace Calloatti.Replatform
       heightUsed = 0;
       if (string.IsNullOrEmpty(spec?.AvailablePlatforms)) return null;
 
-      // The caching logic implemented here
       if (spec.ParsedPlatforms == null)
       {
         spec.ParsedPlatforms = new System.Collections.Generic.List<(int Height, string Name)>();
-
         string[] platformEntries = spec.AvailablePlatforms.Split(',');
 
         foreach (string entry in platformEntries)
@@ -179,8 +208,6 @@ namespace Calloatti.Replatform
             spec.ParsedPlatforms.Add((h, parts[1].Trim()));
           }
         }
-
-        // Sort descending to pick the largest possible fit
         spec.ParsedPlatforms.Sort((a, b) => b.Height.CompareTo(a.Height));
       }
 
