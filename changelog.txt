@@ -1,0 +1,12 @@
+1.0.5
+Support for Emberpelts
+1.0.4
+Replatformed platforms stay as ghosts until finished, to avoid floating buildings on top.
+1.0.3
+Support for Whitepaws Platform_Simple and Platform_Tall
+1.0.2
+Fixed replacing same size platform
+1.0.1
+Caching ReplatformableSpec AvailablePlatforms
+1.0.0
+Initial release
