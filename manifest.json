@@ -1,6 +1,6 @@
 {
   "Name": "Replatform",
-  "Version": "1.0.5",
+  "Version": "2.0.0",
   "Id": "Calloatti.Replatform",
   "MinimumGameVersion": "1.0.12.5",
   "Description": "Allows dynamic splitting and restacking of platforms without requiring the deconstruction of buildings supported above",

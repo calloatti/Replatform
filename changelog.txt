@@ -1,3 +1,6 @@
+2.0.0
+Changed same height check to same template name check.
+Added support for some Landscaping and Power buildings.
 1.0.5
 Support for Emberpelts
 1.0.4

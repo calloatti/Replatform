@@ -4,6 +4,7 @@ using Timberborn.BlockSystem;
 using Timberborn.Buildings;
 using Timberborn.Coordinates;
 using Timberborn.DeconstructionSystem;
+using Timberborn.TemplateSystem;
 using UnityEngine;
 
 namespace Calloatti.Replatform
@@ -62,6 +63,7 @@ namespace Calloatti.Replatform
       BlockObject placing = ValidationContext.CurrentValidatingObject;
       if (placing != null && placing.GetComponent<ReplatformableSpec>() != null)
       {
+        string placingTemplate = placing.GetComponent<TemplateSpec>()?.TemplateName;
         IBlockService blockService = __instance as IBlockService;
         if (blockService == null) return;
 
@@ -76,7 +78,9 @@ namespace Calloatti.Replatform
           if (obj == placing) continue;
           foundAny = true;
 
-          if (obj.GetComponent<ReplatformableSpec>() == null || !obj.IsFinished || obj.Blocks.Size.z == placing.Blocks.Size.z)
+          string objTemplate = obj.GetComponent<TemplateSpec>()?.TemplateName;
+
+          if (obj.GetComponent<ReplatformableSpec>() == null || !obj.IsFinished || objTemplate == placingTemplate)
           {
             validOverlap = false;
             break;
@@ -110,6 +114,7 @@ namespace Calloatti.Replatform
       var placingSpec = __instance.GetComponent<ReplatformableSpec>();
       if (placingSpec != null)
       {
+        string placingTemplate = __instance.GetComponent<TemplateSpec>()?.TemplateName;
         IBlockService blockService = ____blockService as IBlockService;
         HashSet<BlockObject> toSwap = new HashSet<BlockObject>();
 
@@ -120,7 +125,8 @@ namespace Calloatti.Replatform
 
           foreach (var obj in intersecting)
           {
-            if (obj != __instance && obj.GetComponent<ReplatformableSpec>() != null && obj.IsFinished && obj.Blocks.Size.z != __instance.Blocks.Size.z)
+            string objTemplate = obj.GetComponent<TemplateSpec>()?.TemplateName;
+            if (obj != __instance && obj.GetComponent<ReplatformableSpec>() != null && obj.IsFinished && objTemplate != placingTemplate)
             {
               toSwap.Add(obj);
             }
