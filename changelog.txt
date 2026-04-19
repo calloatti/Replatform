@@ -1,3 +1,5 @@
+2.0.2
+Add config and made buildings optional.
 2.0.1
 Fixed IronTeeth and Folktails blueprints.
 2.0.0
