@@ -24,17 +24,20 @@ namespace Calloatti.Replatform
 
     public void SpawnFiller(string fillerTemplateName, Placement placement, bool wasFinished)
     {
-      // Grab the prefab spec for the platform
+      // Grab the prefab spec for the platform (Exactly as you originally had it)
       BlockObjectSpec fillerSpec = _templateNameMapper.GetTemplate(fillerTemplateName).GetSpec<BlockObjectSpec>();
+
+      // 1.1 FIX: Extract the Blueprint from the spec to initialize the Builder
+      var entitySetupBuilder = new EntitySetup.Builder(fillerSpec.Blueprint);
 
       BlockObject filler;
       if (wasFinished)
       {
-        filler = _blockObjectFactory.CreateFinished(fillerSpec, placement);
+        filler = _blockObjectFactory.CreateFinished(entitySetupBuilder, placement);
       }
       else
       {
-        filler = _blockObjectFactory.CreateUnfinished(fillerSpec, placement);
+        filler = _blockObjectFactory.CreateUnfinished(entitySetupBuilder, placement);
         // Flag for ghost visuals
         var replatformable = filler.GetComponent<Replatformable>();
         if (replatformable != null)
