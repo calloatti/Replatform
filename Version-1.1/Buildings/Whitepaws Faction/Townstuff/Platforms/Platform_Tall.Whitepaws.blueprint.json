@@ -1,0 +1,5 @@
+{
+  "ReplatformableSpec": {
+    "AvailablePlatforms": "1:Platform_Simple.Whitepaws,2:Platform_Tall.Whitepaws"
+  }
+}

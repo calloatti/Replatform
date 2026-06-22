@@ -1,0 +1,5 @@
+{
+  "ReplatformableSpec": {
+    "AvailablePlatforms": "1:Platform.Emberpelts,2:DoublePlatform.Emberpelts,3:TriplePlatform.Emberpelts"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "ReplatformableSpec": {
+    "AvailablePlatforms": "1:Platform.Folktails,2:DoublePlatform.Folktails,3:TriplePlatform.Folktails"
+  }
+}
