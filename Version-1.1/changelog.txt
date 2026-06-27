@@ -1,3 +1,5 @@
+2.0.5
+Fixed spec record
 2.0.4
 Added overhangs to config file, default set to false
 2.0.3

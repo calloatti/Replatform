@@ -6,9 +6,7 @@ using Timberborn.WorldPersistence;
 
 namespace Calloatti.Replatform
 {
-  // Converted from a 'record' inheriting 'ComponentSpec' to a standard 'class' 
-  // inheriting 'BaseComponent' to completely bypass the publicized assembly catch-22.
-  public class ReplatformableSpec : BaseComponent
+  public record ReplatformableSpec : ComponentSpec
   {
     // A single string bypasses Timberborn's array deserialization crashes completely.
     [Serialize]
