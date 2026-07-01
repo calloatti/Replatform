@@ -1,49 +1,37 @@
---------------------------------------------------------------------------------
-Game Version: 1.1.0.0
-Mod Version: 2.0.5
+Game Version: 1.1.0.0 - Mod Version: 2.0.5
 - Fixed spec record
 --------------------------------------------------------------------------------
-Game Version: 1.1.0.0
-Mod Version: 2.0.4
+Game Version: 1.1.0.0 - Mod Version: 2.0.4
 - Added overhangs to config file, default set to false
 --------------------------------------------------------------------------------
-Game Version: 1.1.0.0
-Mod Version: 2.0.3
+Game Version: 1.1.0.0 - Mod Version: 2.0.3
 - Update to 1.1.0.0
 --------------------------------------------------------------------------------
-Game Version: 1.1.0.0
-Mod Version: 2.0.2
+Game Version: 1.1.0.0 - Mod Version: 2.0.2
 - Add config and made buildings optional.
 --------------------------------------------------------------------------------
-Game Version: 1.1.0.0
-Mod Version: 2.0.1
+Game Version: 1.1.0.0 - Mod Version: 2.0.1
 - Fixed IronTeeth and Folktails blueprints.
 --------------------------------------------------------------------------------
-Game Version: 1.1.0.0
-Mod Version: 2.0.0
+Game Version: 1.1.0.0 - Mod Version: 2.0.0
 - Changed same height check to same template name check.
 - Added support for some Landscaping and Power buildings.
 --------------------------------------------------------------------------------
-Game Version: 1.1.0.0
-Mod Version: 1.0.5
+Game Version: 1.1.0.0 - Mod Version: 1.0.5
 - Support for Emberpelts
 --------------------------------------------------------------------------------
-Game Version: 1.1.0.0
-Mod Version: 1.0.4
+Game Version: 1.1.0.0 - Mod Version: 1.0.4
 - Replatformed platforms stay as ghosts until finished, to avoid floating buildings on top.
 --------------------------------------------------------------------------------
-Game Version: 1.1.0.0
-Mod Version: 1.0.3
+Game Version: 1.1.0.0 - Mod Version: 1.0.3
 - Support for Whitepaws Platform_Simple and Platform_Tall
 --------------------------------------------------------------------------------
-Game Version: 1.1.0.0
-Mod Version: 1.0.2
+Game Version: 1.1.0.0 - Mod Version: 1.0.2
 - Fixed replacing same size platform
 --------------------------------------------------------------------------------
-Game Version: 1.1.0.0
-Mod Version: 1.0.1
+Game Version: 1.1.0.0 - Mod Version: 1.0.1
 - Caching ReplatformableSpec AvailablePlatforms
 --------------------------------------------------------------------------------
-Game Version: 1.1.0.0
-Mod Version: 1.0.0
+Game Version: 1.1.0.0 - Mod Version: 1.0.0
 - Initial release
+--------------------------------------------------------------------------------
