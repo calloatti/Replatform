@@ -1,0 +1,5 @@
+{
+  "ReplatformableSpec": {
+    "AvailablePlatforms": "1:ReinforcedPlatform1x1x1.IronTeeth,2:ReinforcedPlatform1x1x2.IronTeeth,3:ReinforcedPlatform1x1x3.IronTeeth"
+  }
+}
