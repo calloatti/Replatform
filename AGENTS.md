@@ -6,7 +6,7 @@ Include ..\AGENTS.md
 - **Assembly:** `replatform`
 - **Namespace:** `Calloatti.Replatform`
 - **Framework:** Harmony, Bindito DI
-- **Publicizer:** removes `Timberborn.BlueprintSystem`
+- **Publicizer:** `Timberborn.BlueprintSystem` is publicized via `CommonModSettings.props`, with `DoNotPublicize` for `ComponentSpec.EqualityContract`/`PrintMembers` (record-inheritance CS0507 fix — see csproj)
 - **ModId:** `Calloatti.Replatform`
 - **Min Game Version:** 1.0.12.9 — uses `timberborn-decompiled-1.0.*`
 
@@ -20,7 +20,7 @@ Allows replatforming (resurfacing) terrain tiles. Adds a replatform tool that mo
 | `ModStarter.cs` | Entry point — `IModStarter` |
 | `ReplatformConfigurator.cs` | DI configurator |
 | `ReplatformService.cs` | Core replatforming logic |
-| `ReplatformPatches.cs` | Harmony patches |
+| `ReplatformPatches.cs` | Harmony patches — `BuildingModel._showFinishedModel` accessed directly (Buildings publicized; was `Traverse` before publicization) |
 | `ReplatformModifyBlueprints.cs` | Blueprint modifications for replatforming |
 | `ReplatformableSpec.cs` | ComponentSpec for replatformable entities |
 

@@ -48,7 +48,7 @@ namespace Calloatti.Replatform
       if (replatformable != null && replatformable.IsReplatformingGhost)
       {
         // This forces the internal state to "Finished" (Ghost) before the method logic runs
-        Traverse.Create(__instance).Field("_showFinishedModel").SetValue(true);
+        __instance._showFinishedModel = true;
       }
     }
   }
