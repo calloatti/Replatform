@@ -1,0 +1,1 @@
+Allows dynamic splitting and restacking of platforms without requiring the deconstruction of buildings supported above

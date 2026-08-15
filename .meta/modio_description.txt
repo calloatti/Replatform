@@ -1,0 +1,11 @@
+<p>Allows dynamic splitting and restacking of platforms without requiring the deconstruction of buildings supported above.</p>
+<p>Supports Emberpelts, Whitepaws platforms</p>
+<p>2.0.2: Extra buildings support is optional. Start game, edit \Documents\Timberborn\PlayerData\Replatform.txt to add support for additional buildings not included in the default list.</p>
+<h3 id="settings">Settings:</h3>
+<p>Settings - Mod Settings (settings are saved in \PlayerData)</p>
+<hr />
+<p><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3682179025">Mods on Steam</a></p>
+<p><a href="https://mod.io/u/calloatti/?_sort=name">Mods on mod-dot-io</a></p>
+<p><a href="https://github.com/search?q=owner%3Acalloatti+sort%3Aname-asc+%22Timberborn+Mod%22&amp;type=repositories">Mods on Github</a></p>
+<p><a href="https://github.com/calloatti/ModZips">Mod zip files</a></p>
+
