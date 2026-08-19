@@ -18,8 +18,7 @@ namespace Calloatti.Replatform
       Config = new SimpleConfig(modEnvironment.ModPath);
 
       Debug.Log("[Replatform] Mod initialized! Patching Harmony...");
-      Harmony harmony = new Harmony("calloatti.replatform");
-      harmony.PatchAll();
+new Harmony("Calloatti.Replatform").PatchAll();
       Debug.Log("[Replatform] Harmony patching complete.");
     }
   }
