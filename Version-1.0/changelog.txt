@@ -1,3 +1,5 @@
+* Game Version: 1.0.0.0 - Mod Version: 2.0.11
+- Added optional dependencies
 * Game Version: 1.0.0.0 - Mod Version: 2.0.10
 - Removed reflection
 * Game Version: 1.0.0.0 - Mod Version: 2.0.9
